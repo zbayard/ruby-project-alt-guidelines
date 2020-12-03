@@ -1,6 +1,39 @@
 class User < ActiveRecord::Base
-  has_many :orders
-  
+    has_many :orders
+
+    @@prompt = TTY::Prompt.new
+
+
+    def self.login_user
+      puts "Enter your username."
+      userName = gets.chomp
+      puts "Thanks- Enter your password."
+      passWord = gets.chomp
+
+      user = User.find_by(username: userName, password: passWord)
+
+      if user.nil?
+        puts "That account doesn't exist yet!"
+      else
+        user
+      end
+    end
+
+    def self.register_user
+      puts "Create your username."
+      userName = gets.chomp
+      puts "Great! What's your password?"
+      passWord = gets.chomp
+
+      user = User.find_by(username: userName)
+
+      if user
+        puts "Sorry, that username already exists."
+      else
+        User.create(username: userName, password: passWord)
+      end
+    end
+    
     def see_past_orders
       self.orders.where(checked_out: true)
     end
