@@ -1,38 +1,31 @@
 class User < ActiveRecord::Base
   has_many :orders
   
+    def see_past_orders
+      self.orders.where(checked_out: true)
+    end
   
-# VIEW MENU(read) ********CLI******
-# put out all roasts by name & price
-def view_menu #returns an array of two separate arrays, is this what we want? 
-  Roast.all.map{|roast| [roast.name, roast.price]}
-end
+    def my_cart
+      self.orders.find_or_create_by(checked_out: false)
+    end
 
-# SEE CURRENT CART(read)
-# have the ability to see an empty cart or a cart in progress aka false
-def current_cart
-  orders.find_or_create_by(checked_out: false)
-end
+    def display_cart
+      self.my_cart.coffee_orders.each do |coffee_order|
+        puts "ID:#{coffee_order.id} - #{coffee_order.roast.name}"
+      end
+    end
 
-# def display_cart
-#     self.current_cart.
+    def add_to_cart(roast_inst)
+      CoffeeOrder.create(order: self.my_cart, roast: roast_inst)
+    end
 
-# ADD TO CART(create)
-# create a new order instance(check out false)
-def add_to_cart(roast_inst)
-  CoffeeOrder.create(order: self.current_cart, roast: roast_inst)
-end
+    def delete_from_cart(coffee_order_id)
+      CoffeeOrder.destroy(coffee_order_id)
+    end
 
-#DELETE FROM CART(delete)
-# delete an item from cart
-
-# PLACE ORDER(update)
-# changing check out to true(maybe add an adress column to user & incorporate that)
-
-# SEE PAST ORDERS(read)
-# be able to see a list of all orders with a check out of true
-
-
-
+    def place_order
+      puts "You're all checked out!"
+      self.my_cart.update(checked_out: true)
+    end
 
 end
