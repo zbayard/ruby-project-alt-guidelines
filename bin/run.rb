@@ -11,3 +11,4 @@ until valid_login
 end
 
 cli.user = valid_login
+cli.main_menu

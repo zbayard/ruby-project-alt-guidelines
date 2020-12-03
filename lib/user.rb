@@ -34,8 +34,14 @@ class User < ActiveRecord::Base
       end
     end
     
-    def see_past_orders
+    def past_orders
       self.orders.where(checked_out: true)
+    end
+
+    def display_past_orders
+      self.past_orders.orders.each do |order|
+        puts "ID:#{order.id}"
+      end
     end
   
     def my_cart
