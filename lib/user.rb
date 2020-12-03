@@ -38,11 +38,10 @@ class User < ActiveRecord::Base
       self.orders.where(checked_out: true)
     end
 
-    def display_past_orders
-      self.past_orders.orders.each do |order|
-        puts "ID:#{order.id}"
-      end
-    end
+    # def display_past_orders
+    #   self.past_orders.map {|order| [order.id, order.updated_at]}
+    #   end
+    # end
   
     def my_cart
       self.orders.find_or_create_by(checked_out: false)
@@ -60,6 +59,10 @@ class User < ActiveRecord::Base
 
     def delete_from_cart(coffee_order_id)
       CoffeeOrder.destroy(coffee_order_id)
+    end
+
+    def delete_my_order(order_id)
+      Order.destroy(order_id)
     end
 
     def place_order

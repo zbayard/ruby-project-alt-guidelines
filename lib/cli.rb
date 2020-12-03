@@ -35,6 +35,7 @@ class Cli
             menu.choice "View current cart.", -> {see_my_cart}
             menu.choice "View past orders.", -> {past_orders_helper}
             menu.choice "Check out!", -> {check_it_out}
+            menu.choice "Empty Cart", -> {delete_order_helper}
             menu.choice "Exit Store.", -> {bye_bye}
         end
     end
@@ -44,12 +45,11 @@ class Cli
 
         prompt.select("Here are our coffee roasts, which one would you like?") do |menu|
             menu.choice "Light Roast", -> {view_light}
-            # menu.choice "Medium Roast", ->
-            # menu.choice "Dark Roast", ->
-            # menu.choice "Special Roast", ->
+            menu.choice "Medium Roast", -> {view_medium}
+            menu.choice "Dark Roast", -> {view_dark}
+            menu.choice "Special Roast", -> {view_special}
             menu.choice "Go Back", -> {main_menu}
         end
-
     end
 
     def view_light
@@ -67,11 +67,52 @@ class Cli
         main_menu
     end
 
+    def view_medium
+        prompt.select("This is our Medium Roast Coffee, $10.  What would you like to do next?") do |menu|
+            menu.choice "Add to cart.", -> {purchase_medium}
+            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
+        end
+    end
+
+    def purchase_medium
+        user.add_to_cart(Roast.second)
+        puts "Medium Roast has been added to your cart!"
+        sleep 3
+        main_menu
+    end
+
+    def view_dark
+        prompt.select("This is our Dark Roast Coffee, $10.  What would you like to do next?") do |menu|
+            menu.choice "Add to cart.", -> {purchase_dark}
+            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
+        end
+    end
+
+    def purchase_dark
+        user.add_to_cart(Roast.third)
+        puts "Dark Roast has been added to your cart!"
+        sleep 3
+        main_menu
+    end
+
+    def view_special
+        prompt.select("This is our Special Roast Coffee, $20.  What would you like to do next?") do |menu|
+            menu.choice "Add to cart.", -> {purchase_special}
+            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
+        end
+    end
+
+    def purchase_special
+        user.add_to_cart(Roast.fourth)
+        puts "Special Roast has been added to your cart!"
+        sleep 3
+        main_menu
+    end
+#############################
     def see_my_cart
         user.display_cart
         sleep 3
-        main_menu
-        
+        main_menu  
     end
 
     # come back to this
@@ -87,10 +128,16 @@ class Cli
         main_menu
     end
 
+    # def delete_order_helper
+    #     user.delete_my_order
+
     def bye_bye
         puts "Thanks for checking us out!  Hope to see you soon :)"
     end
 
+    
+    #add delete_current_order in main menu
+    #add see_my_total to see_my_cart maybe or add as selection in main menu
 
 
 
