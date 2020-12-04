@@ -38,9 +38,9 @@ class User < ActiveRecord::Base
       self.orders.where(checked_out: true)
     end
 
-    # def display_past_orders
-    #   self.past_orders.map {|order| [order.id, order.updated_at]}
-    #   end
+    # def display_past_orders COME BACK TMRW COFFEE ORDERSSSSSSS
+    #   self.past_orders.each_with_index do |order, idx|
+    #     puts "#{idx+1}) #{order."
     # end
   
     def my_cart
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
 
     def display_cart
       self.my_cart.coffee_orders.each do |coffee_order|
-        puts "ID:#{coffee_order.id} - #{coffee_order.roast.name}"
+        puts "ID:#{coffee_order.id}) #{coffee_order.roast.name}"
       end
     end
 
@@ -61,13 +61,14 @@ class User < ActiveRecord::Base
       CoffeeOrder.destroy(coffee_order_id)
     end
 
-    def delete_my_order(order_id)
+    def delete_my_order(order_inst)
       Order.destroy(order_id)
     end
 
     def place_order
       puts "You're all checked out!"
       self.my_cart.update(checked_out: true)
+      
     end
 
 end

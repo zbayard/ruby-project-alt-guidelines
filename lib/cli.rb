@@ -109,17 +109,23 @@ class Cli
         main_menu
     end
 #############################
-    def see_my_cart
-        user.display_cart
-        sleep 3
-        main_menu  
+    def see_my_cart #why is else displaying cart when not called? 
+        puts "Current Cart:"
+        if user.display_cart == []
+            puts "Your cart is empty!"
+            sleep 3
+            main_menu
+        else
+            sleep 3
+            main_menu
+        end  
     end
 
-    # come back to this
+    # come back to this, return looks messy, we don't have access to roast, combine arrays? 
     def past_orders_helper
         user.reload
         puts "Here are your past orders."
-        user.display_past_orders
+        user.past_orders
     end
 
     def check_it_out
@@ -128,8 +134,9 @@ class Cli
         main_menu
     end
 
-    # def delete_order_helper
-    #     user.delete_my_order
+    def delete_order_helper
+        user.delete_my_order(order_id)
+    end
 
     def bye_bye
         puts "Thanks for checking us out!  Hope to see you soon :)"
@@ -141,7 +148,7 @@ class Cli
 
 
 
-
+    
 
 
 
