@@ -126,7 +126,9 @@ class Cli
     def past_orders_helper
         user.reload
         puts "Here are your past orders."
-        puts "#{user.display_past_orders}"
+        user.display_past_orders
+        sleep 3
+        main_menu
     end
 
     def view_current_total
@@ -134,7 +136,6 @@ class Cli
         sleep 3
         main_menu
     end
-    
 
     def check_it_out
         user.place_order
