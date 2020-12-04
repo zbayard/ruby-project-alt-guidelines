@@ -38,10 +38,23 @@ class User < ActiveRecord::Base
       self.orders.where(checked_out: true)
     end
 
-    # def display_past_orders COME BACK TMRW COFFEE ORDERSSSSSSS
-    #   self.past_orders.each_with_index do |order, idx|
-    #     puts "#{idx+1}) #{order."
-    # end
+    def display_past_orders #why can't we use coffee_orders here? 
+      placed_orders = self.orders.select {|order| order.checked_out == true}
+      #<Order:0x00007f8a9be24370 id: 7, user_id: 12, checked_out: true, created_at: 2020-12-02 22:10:17 UTC, updated_at: 2020-12-03 20:13:41 UTC>
+      roast_instances = placed_orders.map{|order| order.roasts}
+      roast_instances.each do |roast|
+      # binding.pry
+        puts "ID:#{roast.ids}) #{roast.name}"
+      end
+      # roast_instances.map {|instance| instance.name}
+      #[[#<Roast:0x00007f8aa0108448 id: 3, name: "Medium", price: 10>, #<Roast:0x00007f8aa0108218 id: 2, name: "Light", price: 10>], [#<Roast:0x00007f8a9bb67bf0 id: 2, name: "Light", price: 10>]]
+      # var2 = var.map {|order| order.roasts}
+      # var2.select{|roast| roast.name}
+    
+      # pull the order instances for user that are true(checked out) from those orders display contents aka roast & quantity
+        
+    
+    end
   
     def my_cart
       self.orders.find_or_create_by(checked_out: false)

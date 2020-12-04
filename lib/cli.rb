@@ -34,6 +34,7 @@ class Cli
             menu.choice "View our coffee selection.", -> {see_the_coffee} 
             menu.choice "View current cart.", -> {see_my_cart}
             menu.choice "View past orders.", -> {past_orders_helper}
+            menu.choice "View current total.", -> {view_current_total}
             menu.choice "Check out!", -> {check_it_out}
             menu.choice "Empty Cart", -> {empty_cart_helper}
             menu.choice "Exit Store.", -> {bye_bye}
@@ -125,8 +126,15 @@ class Cli
     def past_orders_helper
         user.reload
         puts "Here are your past orders."
-        user.past_orders
+        puts "#{user.display_past_orders}"
     end
+
+    def view_current_total
+        puts "Your total is $#{user.my_cart.view_total}"
+        sleep 3
+        main_menu
+    end
+    
 
     def check_it_out
         user.place_order
@@ -146,8 +154,7 @@ class Cli
     end
 
     
-    #add see_my_total to see_my_cart maybe or add as selection in main menu
-
+    
 
 
     
