@@ -61,8 +61,9 @@ class User < ActiveRecord::Base
       CoffeeOrder.destroy(coffee_order_id)
     end
 
-    def delete_my_order(order_inst)
-      Order.destroy(order_id)
+    def empty_cart(order_inst)
+      id = order_inst.id
+      Order.destroy(id)
     end
 
     def place_order

@@ -35,7 +35,7 @@ class Cli
             menu.choice "View current cart.", -> {see_my_cart}
             menu.choice "View past orders.", -> {past_orders_helper}
             menu.choice "Check out!", -> {check_it_out}
-            menu.choice "Empty Cart", -> {delete_order_helper}
+            menu.choice "Empty Cart", -> {empty_cart_helper}
             menu.choice "Exit Store.", -> {bye_bye}
         end
     end
@@ -134,8 +134,11 @@ class Cli
         main_menu
     end
 
-    def delete_order_helper
-        user.delete_my_order(order_id)
+    def empty_cart_helper
+        user.empty_cart(user.my_cart)
+        puts "Your cart is now empty!"
+        sleep 3 
+        main_menu
     end
 
     def bye_bye
@@ -143,7 +146,6 @@ class Cli
     end
 
     
-    #add delete_current_order in main menu
     #add see_my_total to see_my_cart maybe or add as selection in main menu
 
 
@@ -156,8 +158,6 @@ class Cli
 
 
 
-    # def view_menu #returns an array of two separate arrays, is this what we want? this might belong in cli.rb
-    #     Roast.all.map{|roast| [roast.name, roast.price]}
-    # end
+    
 
 end
