@@ -7,5 +7,4 @@ class Order < ActiveRecord::Base
     def view_total
         self.roasts.sum(:price)
     end
-
 end

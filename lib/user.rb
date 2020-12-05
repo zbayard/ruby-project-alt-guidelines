@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     def self.login_user
       puts "Enter your username."
       userName = gets.chomp
-      puts "Thanks- Enter your password."
+      puts "Thanks #{userName}!- Enter your password."
       passWord = gets.chomp
 
       user = User.find_by(username: userName, password: passWord)
@@ -41,30 +41,12 @@ class User < ActiveRecord::Base
     def display_past_orders
       placed_orders = self.orders.select {|order| order.checked_out == true}
       order_contents = placed_orders.map{|order| order.roasts}
-      # roast_instances_first=roast_instances[0]
-      # roast_instances_second=roast_instances[1]
-      # combined_array=roast_instances_first.concat(roast_instances_second)
       
-      # if order_contents.size == 1
-        order_contents.each do |roast|
+      order_contents.each do |roast|
         roast.each do |item|
         puts "ID:#{item.id}) #{item.name} $#{item.price}"
         end
       end
-      #     puts "ID:#{roast.ids}) #{roast.first.name}"
-      #   end
-      # else
-      #   order_contents.each do |roast|
-      #     puts "ID:#{roast.ids}) #{roast.name}"
-      #   end
-      # end
-        # binding.pry
-        # else
-        #   combined_array.each do |roast|
-        #   puts "ID:#{roast.ids}) #{roast.first.name}"
-        #   end
-        # end
-      
     end   
   
     def my_cart
@@ -79,10 +61,6 @@ class User < ActiveRecord::Base
 
     def add_to_cart(roast_inst)
       CoffeeOrder.create(order: self.my_cart, roast: roast_inst)
-    end
-
-    def delete_from_cart(coffee_order_id)
-      CoffeeOrder.destroy(coffee_order_id)
     end
 
     def empty_cart(order_inst)
