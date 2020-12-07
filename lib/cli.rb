@@ -44,79 +44,34 @@ class Cli
     def see_the_coffee
         system "clear"
 
-        prompt.select("Here are our coffee roasts, which one would you like?") do |menu|
-            menu.choice "Light Roast", -> {view_light}
-            menu.choice "Medium Roast", -> {view_medium}
-            menu.choice "Dark Roast", -> {view_dark}
-            menu.choice "Special Roast", -> {view_special}
-            menu.choice "Go Back", -> {main_menu}
-        end
+      prompt.select("Here are our coffee roasts, which one would you like?") do |menu|
+        menu.choice "Light Roast", -> {view_roast("Light")}
+        menu.choice "Medium Roast", -> {view_roast("Medium")}
+        menu.choice "Dark Roast", -> {view_roast("Dark")}
+        menu.choice "Special Roast", -> {view_roast("Special")}
+        menu.choice "Go Back", -> {main_menu}
+      end
     end
 
-    def view_light #maybe try & consolodate all view & purchase helpers?
-        system "clear"
-        prompt.select("This is our Light Roast Coffee, $10.  What would you like to do next?") do |menu|
-            menu.choice "Add to cart.", -> {purchase_light}
-            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
-        end
+    def view_roast(roast_name)
+      system "clear"
+      
+      
+      prompt.select("This is our #{roast_name} Roast Coffee, $#{roast_inst.price}.  What would you like to do next?") do |menu|
+        menu.choice "Add to cart.", -> {purchase_roast(roast_name)}
+        menu.choice "Go back to coffee selections.", -> {see_the_coffee}
+      end
     end
 
-    def purchase_light
-        system "clear"
-        user.add_to_cart(Roast.first)
-        puts "Light Roast has been added to your cart!"
-        sleep 3
-        main_menu
+    def purchase_roast(roast_name)
+      system "clear"
+      roast_inst=Roast.find_by(name: roast_name)
+      user.add_to_cart(roast_inst)
+      puts "#{roast_name} Roast has been added to your cart!"
+      sleep 3
+      main_menu
     end
 
-    def view_medium
-        system "clear"
-        prompt.select("This is our Medium Roast Coffee, $10.  What would you like to do next?") do |menu|
-            menu.choice "Add to cart.", -> {purchase_medium}
-            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
-        end
-    end
-
-    def purchase_medium
-        system "clear"
-        user.add_to_cart(Roast.second)
-        puts "Medium Roast has been added to your cart!"
-        sleep 3
-        main_menu
-    end
-
-    def view_dark
-        system "clear"
-        prompt.select("This is our Dark Roast Coffee, $10.  What would you like to do next?") do |menu|
-            menu.choice "Add to cart.", -> {purchase_dark}
-            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
-        end
-    end
-
-    def purchase_dark
-        system "clear"
-        user.add_to_cart(Roast.third)
-        puts "Dark Roast has been added to your cart!"
-        sleep 3
-        main_menu
-    end
-
-    def view_special
-        system "clear"
-        prompt.select("This is our Special Roast Coffee, $20.  What would you like to do next?") do |menu|
-            menu.choice "Add to cart.", -> {purchase_special}
-            menu.choice "Go back to coffee selections.", -> {see_the_coffee}
-        end
-    end
-
-    def purchase_special
-        system "clear"
-        user.add_to_cart(Roast.fourth)
-        puts "Special Roast has been added to your cart!"
-        sleep 3
-        main_menu
-    end
-#############################
     def see_my_cart
         system "clear"
         puts "Current Cart:"
