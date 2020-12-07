@@ -75,13 +75,10 @@ class User < ActiveRecord::Base
       self.my_cart.update(checked_out: true)
     end
 
-    def write_review
+    def write_review(roast_inst)
       puts "Please rate this roast 1-5."
       rating = gets.chomp.to_i
-    
-      roast_id1 = self.reviews.pluck(:roast_id)
-      roast_id2 = roast_id1.last
-      Review.create(user_id: self.id, roast_id: roast_id2, rating: rating)
+      Review.create(user_id: self.id, roast_id: roast_inst.id, rating: rating)
       
     end
 end

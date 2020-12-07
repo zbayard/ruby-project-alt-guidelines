@@ -59,7 +59,7 @@ class Cli
       prompt.select("This is our #{roast_name} Roast Coffee, $#{roast_inst.price}.  What would you like to do next?") do |menu|
         menu.choice "Add to cart.", -> {purchase_roast(roast_name)}
         menu.choice "Go back to coffee selections.", -> {see_the_coffee}
-        menu.choice "Leave a roast review", -> {write_review_helper}
+        menu.choice "Leave a roast review", -> {write_review_helper(roast_inst)}
       end
     end
 
@@ -120,9 +120,9 @@ class Cli
         main_menu
     end
 
-    def write_review_helper
+    def write_review_helper(roast_inst)
         system "clear"
-        user.write_review
+        user.write_review(roast_inst)
 
         puts "Thanks for leaving a review!"
         sleep 5
