@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_201328) do
+ActiveRecord::Schema.define(version: 2020_12_07_150049) do
 
   create_table "coffee_orders", force: :cascade do |t|
     t.integer "roast_id"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 2020_12_02_201328) do
     t.boolean "checked_out"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "roast_id"
+    t.integer "rating"
   end
 
   create_table "roasts", force: :cascade do |t|
