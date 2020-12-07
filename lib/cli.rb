@@ -75,7 +75,7 @@ class Cli
     def see_my_cart
         system "clear"
         puts "Current Cart:"
-        if user.display_cart == []
+        if user.display_cart == [] #cart is empty
             puts "Your cart is empty!"
             sleep 3
             main_menu
@@ -84,7 +84,7 @@ class Cli
             main_menu
         end  
     end
- 
+    
     def past_orders_helper
         system "clear"
         user.reload
@@ -103,7 +103,7 @@ class Cli
 
     def check_it_out
         system "clear"
-        if user.display_cart == []
+        if user.display_cart == [] #cart is empty
             puts "You have nothing in your cart!"
         else
             user.place_order
@@ -133,7 +133,7 @@ class Cli
     def bye_bye
         system "clear"
         puts "Thanks for checking us out!  Hope to see you soon :)"
-        sleep 5
+        sleep 3
         system "clear"
     end
 end
