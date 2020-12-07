@@ -1,5 +1,7 @@
+
 class User < ActiveRecord::Base
     has_many :orders
+    has_many :reviews
 
     @@prompt = TTY::Prompt.new
 
@@ -71,5 +73,15 @@ class User < ActiveRecord::Base
     def place_order
       puts "You're all checked out!"
       self.my_cart.update(checked_out: true)
+    end
+
+    def write_review
+      puts "Please rate this roast 1-5."
+      rating = gets.chomp.to_i
+    
+      roast_id1 = self.reviews.pluck(:roast_id)
+      roast_id2 = roast_id1.last
+      Review.create(user_id: self.id, roast_id: roast_id2, rating: rating)
+      
     end
 end
