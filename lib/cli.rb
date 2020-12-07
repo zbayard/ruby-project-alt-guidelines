@@ -125,7 +125,7 @@ class Cli
         user.write_review(roast_inst)
 
         puts "Thanks for leaving a review!"
-        sleep 5
+        sleep 3
         main_menu
 
     end
