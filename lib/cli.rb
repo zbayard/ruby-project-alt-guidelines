@@ -56,7 +56,7 @@ class Cli
     def view_roast(roast_name)
       system "clear"
       roast_inst=Roast.find_by(name: roast_name)
-      prompt.select("This is our #{roast_name} Roast Coffee, $#{roast_inst.price}.  What would you like to do next?") do |menu|
+      prompt.select("This is our #{roast_name} Roast Coffee, $#{roast_inst.price}. It has an average rating of #{roast_inst.average_rating}. What would you like to do next?") do |menu|
         menu.choice "Add to cart.", -> {purchase_roast(roast_name)}
         menu.choice "Go back to coffee selections.", -> {see_the_coffee}
         menu.choice "Leave a roast review", -> {write_review_helper(roast_inst)}
@@ -129,7 +129,6 @@ class Cli
         main_menu
 
     end
-
 
     def bye_bye
         system "clear"
